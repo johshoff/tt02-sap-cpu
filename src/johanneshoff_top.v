@@ -15,7 +15,7 @@ module johanneshoff_top(
 		0, // en_read_external
 		0, // external_value
 		io_out,
-		output wire halted);
+		halted);
 
 endmodule
 
