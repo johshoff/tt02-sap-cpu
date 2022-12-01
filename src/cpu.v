@@ -60,10 +60,10 @@ module rom(
 	input wire [8:0] address,
 	output reg [15:0] out
 );
-	reg [15:0] data[0:511];
+	reg [15:0] data[0:3];
 
 	always @(*)
-		out <= data[address];
+		out <= data[address[1:0]];
 
 	initial begin
 		// "program" the ROM
