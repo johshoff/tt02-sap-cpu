@@ -60,7 +60,6 @@ async def test(dut):
                 dut.top.m.pc.value,
                 dut.top.m.out_reg_instr,
                 dut.top.m.mc.count,
-                dut.top.m.instr_decode.address,
                 dut.top.m.micro,
                 dut.top.m.micro_done,
                 dut.top.io_out,
