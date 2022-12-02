@@ -23,7 +23,7 @@ module tb (
     wire [7:0] inputs = {6'b0, rst, clk};
     wire [7:0] outputs;
 
-    johanneshoff_top dut(
+    johanneshoff_top top(
       .io_in  (inputs),
       .io_out (outputs)
     );

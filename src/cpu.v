@@ -60,10 +60,10 @@ module rom(
 	input wire [8:0] address,
 	output reg [15:0] out
 );
-	reg [15:0] data[0:63];
+	reg [15:0] data[0:511];
 
 	always @(*)
-		out <= data[address[5:0]];
+		out <= data[address];
 
 	initial begin
 		// "program" the ROM
@@ -98,6 +98,7 @@ endmodule
 
 module machine(
 	input wire clk,
+	input wire reset,
 	input wire en_read_external,
 	input wire [7:0] external_value,
 	output wire [7:0] out_reg_out,
@@ -107,7 +108,6 @@ module machine(
 	wire [7:0] alu;
 	wire [15:0] micro;
 	wire [2:0] micro_counter;
-	reg reset = 0;
 	wire en_write_a;
 	wire en_read_a;
 	wire en_write_b;

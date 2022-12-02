@@ -12,6 +12,7 @@ module johanneshoff_top(
 
 	machine m(
 		clk,
+		reset,
 		1'b0, // en_read_external
 		8'b0, // external_value
 		io_out,
