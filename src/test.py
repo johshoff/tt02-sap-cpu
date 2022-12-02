@@ -50,6 +50,8 @@ async def test(dut):
         dut._log.info(f"should be {val}")
 
         assert val == i.value
+    #for i in range(100):
+    #    await ClockCycles(dut.clk, 1)
 
         dut._log.info(f"---------------")
         for var in [

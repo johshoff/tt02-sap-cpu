@@ -57,10 +57,10 @@ module memory(
 endmodule
 
 module rom(
-	input wire [8:0] address,
+	input wire [7:0] address,
 	output reg [15:0] out
 );
-	reg [15:0] data[0:511];
+	reg [15:0] data[0:255];
 
 	always @(*)
 		out <= data[address];
@@ -106,6 +106,7 @@ module machine(
 );
 	wire [7:0] bus;
 	wire [7:0] alu;
+	wire [15:0] micro_lookup;
 	wire [15:0] micro;
 	wire [2:0] micro_counter;
 	wire en_write_a;
@@ -143,7 +144,12 @@ module machine(
 	registerpc pc (bus, clk, reset, en_write_pc,    en_increment_pc, out_reg_pc);
 
 	memory m(bus, clk, reset, en_write_mem, en_write_mem_adr, out_mem);
-	rom instr_decode({ last_carry, last_zero, out_reg_instr[7:4], micro_counter }, micro);
+	wire [1:0] post_fetch_micro_counter = micro_counter-2;
+	rom instr_decode({ last_carry, last_zero, out_reg_instr[7:4], post_fetch_micro_counter }, micro_lookup);
+
+	assign micro = micro_counter == 0 ? 16'b0000000001000010
+	             : micro_counter == 1 ? 16'b0000100000100100
+	             : micro_lookup;
 
 	add_carry adc(
 		out_reg_a,
